@@ -1,11 +1,16 @@
 from flask import Flask
+import random
 
 app = Flask(__name__)
 
 
-@app.route("/")
-def hello_world():
-    return {"message": "Hello, World!"}
+# define a GET endpoint for the /planet route, which will return a random planet
+@app.route("/planet", methods=["GET"])
+def get_planet():
+    # for now, generate a random planet ID. In the future, this will be real planet data.
+    planet_id = random.randint(0, 1000000)
+    # send the data back to the client
+    return {"id": planet_id}
 
 
 if __name__ == "__main__":
