@@ -1,5 +1,6 @@
 from flask import Flask, request
 
+from nasa_controller import NASAController
 from planet_controller import PlanetController
 
 app = Flask(__name__)
@@ -7,13 +8,21 @@ app = Flask(__name__)
 # Create the planet controller
 planet_controller = PlanetController()
 
+# create the NASA controller
+nasa_controller = NASAController()
+
 
 # define a GET endpoint for the /planet route, which will return a random planet
 @app.route("/planet", methods=["GET"])
 def get_planet():
-    planet_id = planet_controller.create_planet()
-    # send the planet's ID back to the client, to use in other API requests.
-    return {"id": planet_id}
+    # get a random planet from NASA
+    planet = nasa_controller.get_random_planet()
+
+    # create the planet in the planet controller
+    planet = planet_controller.create_planet(planet)
+
+    # Send the planet back to the client
+    return {"planet": planet}
 
 
 # define a GET endpoint for the /planets route, which will return a list of planets
