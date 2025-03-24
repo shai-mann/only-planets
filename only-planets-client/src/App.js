@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 
 // This is the URL of the API we are using to fetch the planet data
-const API_URL = "http://localhost:8080/planet";
+const API_URL = "http://localhost:8080";
 
 function App() {
   // This is a state variable that will store the planet object
@@ -14,7 +14,7 @@ function App() {
   // we still want to be able to do other things, so we tell React the function is async.
   async function fetchPlanet() {
     // We use the await keyword to wait for asynchronous operations to complete.
-    const response = await fetch(API_URL);
+    const response = await fetch(API_URL + "/planet");
     const data = await response.json();
 
     // Once we have the data, we update the state variable with the new data.
@@ -26,6 +26,21 @@ function App() {
   useEffect(() => {
     fetchPlanet();
   }, []);
+
+  /* Voting Logic */
+
+  function handleVote(vote) {
+    // Notice that we don't await this fetch - we want to vote and get a new planet
+    // without waiting for the vote to be processed.
+    fetch(`${API_URL}/vote/${planet.id}?vote=${vote}`, {
+      method: "POST",
+    });
+
+    // Remove current planet
+    setPlanet(null);
+    // Fetch a new planet
+    fetchPlanet();
+  }
 
   return (
     <div className="app-container">
@@ -45,8 +60,18 @@ function App() {
       <div className="vote-buttons-container">
         {/* Note that the buttons use the same class - this is allowed! */}
         {/* Note they also use multiple classes - this is also allowed! */}
-        <button className="vote-button vote-button-yes">Yes</button>
-        <button className="vote-button vote-button-no">No</button>
+        <button
+          className="vote-button vote-button-yes"
+          onClick={() => handleVote(true)}
+        >
+          Yes
+        </button>
+        <button
+          className="vote-button vote-button-no"
+          onClick={() => handleVote(false)}
+        >
+          No
+        </button>
       </div>
     </div>
   );
