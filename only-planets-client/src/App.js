@@ -19,7 +19,7 @@ function App() {
     const data = await response.json();
 
     // Once we have the data, we update the state variable with the new data.
-    setPlanet(data);
+    setPlanet(data.planet);
   }
 
   // This is a useEffect hook, which will run the code inside it when the component is "mounted"
@@ -35,10 +35,13 @@ function App() {
       <h2 className="app-subtitle">
         Vote yes if you want to see more of this planet...
       </h2>
-
       {/* Planet image */}
-      <img src={logo} alt={"planet"} className="planet-image" />
-
+      {planet !== null && (
+        <img src={planet.image} alt={"planet"} className="planet-image" />
+      )}
+      <p className="planet-name">
+        {planet === null ? "Loading..." : planet.name}
+      </p>
       {/* Vote buttons */}
       <div className="vote-buttons-container">
         {/* Note that the buttons use the same class - this is allowed! */}
