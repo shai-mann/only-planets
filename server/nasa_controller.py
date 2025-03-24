@@ -1,6 +1,6 @@
 import requests
 import random
-from typing import Dict, Optional
+from typing import Dict
 
 
 # From testing the NASA API, we know it has 5862 planets in the scope we are searching.
@@ -9,6 +9,26 @@ NUM_PLANETS = 5862
 # If the exoplanet has no image, we'll use this default image.
 # I chose an image of Kepler-22b as our default.
 DEFAULT_IMAGE_URL = "https://images-assets.nasa.gov/image/PIA14883/PIA14883~medium.jpg"
+
+# Since a lot of exoplanets don't have images, this list is planets that do have images.
+# We'll use this list to randomly select a planet from the list.
+PLANETS_WITH_IMAGES = [
+    "Kepler-22b",
+    "Kepler-16b",
+    "Kepler-186f",
+    "Kepler-452b",
+    "TRAPPIST-1e",
+    "TRAPPIST-1f",
+    "TRAPPIST-1g",
+    "WASP-39b",
+    "HD 209458 b",
+    "GJ 1214 b",
+    "55 Cancri e",
+]
+
+
+def generate_fake_planet_name():
+    return random.choice(PLANETS_WITH_IMAGES)
 
 
 def generate_planet_name_api_request():
@@ -42,10 +62,11 @@ class NASAController:
     def get_random_planet(self) -> Dict:
         try:
             # generate the URL
-            url = generate_planet_name_api_request()
+            # url = generate_planet_name_api_request()
 
-            # fetch the data for the planet name
-            planet_name = requests.get(url).json()[0]["pl_name"]
+            # # fetch the data for the planet name
+            # planet_name = requests.get(url).json()[0]["pl_name"]
+            planet_name = generate_fake_planet_name()
 
             # generate the URL for the planet image
             planet_image_url = generate_planet_image_api_request(planet_name)
@@ -59,8 +80,8 @@ class NASAController:
                 # if there is no image, return the default image
                 return {"name": planet_name, "image": DEFAULT_IMAGE_URL}
 
-            # get the first image URL from the data
-            planet_image_url = planet_image_data[0]["links"][0]["href"]
+            # get a random image URL from the data
+            planet_image_url = random.choice(planet_image_data[0]["links"])["href"]
 
             # return the planet data
             return {"name": planet_name, "image": planet_image_url}
