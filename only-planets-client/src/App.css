@@ -1,38 +1,64 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.app-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.app-subtitle {
+  color: rgb(85, 85, 85);
+  margin-bottom: 10px;
+}
+
+.planet-image {
+  object-fit: contain;
+  max-height: 400px;
+}
+
+.vote-buttons-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.vote-button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-color: #f0f0f0;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* This changes the styles when the user hovers over the button */
+.vote-button:hover {
+  scale: 1.05;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* This changes the styles when the user clicks the button */
+.vote-button:active {
+  scale: 0.95;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* The styling for only the yes button */
+.vote-button-yes {
+  background-color: #4caf50;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.vote-button-no {
+  background-color: #f44336;
+  color: white;
 }
