@@ -43,7 +43,7 @@ class PlanetController:
             massaged_planets.append(
                 {
                     "id": planet_id,
-                    "vote": self.planets[planet_id],
+                    **self.planets[planet_id],
                 }
             )
 

@@ -1,5 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
+import VoteList from "./VoteList";
 
 // This is the URL of the API we are using to fetch the planet data
 const API_URL = "http://localhost:8080";
@@ -8,6 +9,9 @@ function App() {
   // This is a state variable that will store the planet object
   // When there is no planet, it will be null
   const [planet, setPlanet] = useState(null);
+
+  // These are the planets that the user has generated
+  const [planetsList, setPlanetsList] = useState([]);
 
   // This function fetches the planet data from the API
   // It's "async", because it isn't instantaneous. While the API call is happening,
@@ -42,6 +46,23 @@ function App() {
     fetchPlanet();
   }
 
+  /* Planet List Logic */
+
+  useEffect(() => {
+    // This is another way to handle asnychronous operations.
+    // It's a bit more concise than the async/await syntax.
+    // The function passed into the .then() method will be called when the fetch operation is complete.
+    // The response is passed into the function as an argument.
+    fetch(API_URL + "/planets")
+      .then((response) => response.json())
+      .then((data) => setPlanetsList(data.planets));
+
+    // This is a dependency array. The useEffect hook will only run when the planet state changes.
+    // When empty, it only runs once, when the component is rendered.
+    // In this case, it will run every time the planet state changes, so our
+    // list should stay up to date.
+  }, [planet]);
+
   return (
     <div className="app-container">
       {/* Title and subtitle */}
@@ -73,6 +94,7 @@ function App() {
           No
         </button>
       </div>
+      <VoteList planets={planetsList} />
     </div>
   );
 }
