@@ -1,9 +1,12 @@
 from flask import Flask, request
+from flask_cors import CORS
 
 from nasa_controller import NASAController
 from planet_controller import PlanetController
 
 app = Flask(__name__)
+# Enable CORS for all routes
+CORS(app)
 
 # Create the planet controller
 planet_controller = PlanetController()

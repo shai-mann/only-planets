@@ -21,6 +21,12 @@
   max-height: 400px;
 }
 
+.planet-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
 .vote-buttons-container {
   display: flex;
   flex-direction: row;
