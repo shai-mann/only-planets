@@ -18,4 +18,18 @@ pip install -r requirements.txt
 python3 app.py
 ```
 
+Check it out in your browser by going to localhost:8080!
+
 Installing the requirements and running `cd server` is not necessary every time, but you must make sure the requirements are installed, and the `python3` command is being run from within the right folder.
+
+To start the client, run the following:
+
+```
+cd only-planets-client
+npm i
+npm start
+```
+
+Check it out in your browser by going to localhost:3000!
+
+Installing dependencies (`npm i`) and cd-ing into the `only-planets-client` folder is only necessary if you are in the wrong folder or have not installed all dependencies.
