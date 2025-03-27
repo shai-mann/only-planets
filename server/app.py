@@ -1,11 +1,49 @@
-from flask import Flask
+from flask import Flask, request
+from flask_cors import CORS
+
+from nasa_controller import NASAController
+from planet_controller import PlanetController
 
 app = Flask(__name__)
+# Enable CORS for all routes
+CORS(app)
+
+# Create the planet controller
+planet_controller = PlanetController()
+
+# create the NASA controller
+nasa_controller = NASAController()
 
 
-@app.route("/")
-def hello_world():
-    return {"message": "Hello, World!"}
+# define a GET endpoint for the /planet route, which will return a random planet
+@app.route("/planet", methods=["GET"])
+def get_planet():
+    # get a random planet from NASA
+    planet = nasa_controller.get_random_planet()
+
+    # create the planet in the planet controller
+    planet = planet_controller.create_planet(planet)
+
+    # Send the planet back to the client
+    return {"planet": planet}
+
+
+# define a GET endpoint for the /planets route, which will return a list of planets
+# that the user has already seen and voted on.
+@app.route("/planets", methods=["GET"])
+def get_planets():
+    planets = planet_controller.get_all_planets()
+    # send the data back to the client
+    return {"planets": planets}
+
+
+# define a POST endpoint for the /planet route, which will allow the user to vote on a planet
+@app.route("/vote/<planet_id>", methods=["POST"])
+def vote_on_planet(planet_id):
+    vote = request.args.get("vote")
+    planet_controller.vote_on_planet(planet_id, vote)
+
+    return {"success": True}
 
 
 if __name__ == "__main__":

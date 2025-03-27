@@ -1,0 +1,70 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.app-subtitle {
+  color: rgb(85, 85, 85);
+  margin-bottom: 10px;
+}
+
+.planet-image {
+  object-fit: contain;
+  max-height: 400px;
+}
+
+.planet-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.vote-buttons-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.vote-button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-color: #f0f0f0;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* This changes the styles when the user hovers over the button */
+.vote-button:hover {
+  scale: 1.05;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* This changes the styles when the user clicks the button */
+.vote-button:active {
+  scale: 0.95;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* The styling for only the yes button */
+.vote-button-yes {
+  background-color: #4caf50;
+  color: white;
+}
+
+.vote-button-no {
+  background-color: #f44336;
+  color: white;
+}
